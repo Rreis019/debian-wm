@@ -1,0 +1,34 @@
+! Fonte parecida com Terminator (Ubuntu Mono)
+XTerm*faceName: Ubuntu Mono
+XTerm*faceSize: 14
+
+XTerm*background: black
+XTerm*foreground: white
+
+! Colors based in theme ambiance
+XTerm*color0:  #2c001e
+XTerm*color1:  #cc342b
+XTerm*color2:  #198844
+XTerm*color3:  #fba922
+XTerm*color4:  #3971ed
+XTerm*color5:  #a36ac7
+XTerm*color6:  #3971ed
+XTerm*color7:  #eeeeec
+XTerm*color8:  #6c6c6c
+XTerm*color9:  #cc342b
+XTerm*color10: #198844
+XTerm*color11: #fba922
+XTerm*color12: #3971ed
+XTerm*color13: #a36ac7
+XTerm*color14: #3971ed
+XTerm*color15: #ffffff
+
+! No Scrollbar
+XTerm*scrollBar: false
+
+! Sem cursor piscando
+XTerm*cursorBlink: true
+
+xterm*VT100.Translations: #override \
+                 Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
+                 Ctrl Shift <Key>C:    copy-selection(CLIPBOARD)
