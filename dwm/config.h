@@ -5,8 +5,8 @@
 #include "movestack.c"
 
 #define WINDOW_REMOVE_BORDER 1 /* Remove border around the window */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int snap      = 0;       /* snap pixel */
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
+static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=10" };
@@ -65,11 +65,13 @@ static const Layout layouts[] = {
 
 /** Commands automatically executed during window manager startup. */
 static const char *cmd_nitrogen[] = { "nitrogen", "--restore", NULL };
-static const char *cmd_picom[] = { "picom", "--experimental-backends", "--config", "/home/seu_usuario/.config/picom/picom.conf", NULL };
+static const char *cmd_picom[] = { "picom", "--experimental-backends", "--config", "/home/rodrigo/.config/picom/picom.conf", NULL };
+static const char *dwmbarcmd[] = { "bash","/usr/local/bin/dwm_bar.sh", NULL };
 
 static const char **startup_commands[] = {
     cmd_nitrogen,
     cmd_picom,
+    dwmbarcmd,
     NULL
 };
 
