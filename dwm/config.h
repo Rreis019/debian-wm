@@ -2,6 +2,7 @@
 
 /* appearance */
 #include <X11/Xutil.h>
+#include "movestack.c"
 
 #define WINDOW_REMOVE_BORDER 1 /* Remove border around the window */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
@@ -34,8 +35,8 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "chromium",     NULL,       NULL,       0,        0,           -1 },
+	{ "zed",          NULL,       NULL,       1 << 1,       0,       -1 }, //tag 2
 };
 
 /* layout(s) */
@@ -46,9 +47,9 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "tile",      tile },    /* first entry is default */
+	{ "floating",      NULL },    /* no layout function means floating behavior */
+	{ "monocle",      monocle },
 };
 
 /* key definitions */
@@ -74,7 +75,7 @@ static const char *termcmd[]  = { "xterm", NULL };
 static const char *browsercmd[]  = { "chromium", NULL };
 static const char *codeeditor[] = {"zed" , NULL};
 
-#include "movestack.c"
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = rofidrun } }, // Show app to open
@@ -82,16 +83,19 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_b,      spawn,          {.v = browsercmd } }, //Opens browser
 	{ MODKEY,                       XK_c,      spawn,          {.v = codeeditor } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_X,      spawn,          {.v = lockscreen } },
+	{ MODKEY,                       XK_x,      spawn,          {.v = lockscreen } },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} }, // Kill focused client
 	{ MODKEY|ControlMask,           XK_q,      quit,           {0} }, // Quit Window manager :/
 	{ MODKEY,                       XK_m,      togglebar,      {0} }, // Toggle status bar visible or not
 
+    { 0,                            XK_Print,  spawn,          SHCMD("maim | xclip -selection clipboard -t image/png") }, //Print Whole screen
+    { ShiftMask,                    XK_Print,  spawn,          SHCMD("maim -s | xclip -selection clipboard -t image/png") }, //Print select rectangle
 	//{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	//{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_Right,  movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_Left,   movestack,      {.i = -1 } },
-
+	{ MODKEY,                       XK_Right,      focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_Left,      focusstack,     {.i = -1 } },
 
 	//{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	//{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
