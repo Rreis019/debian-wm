@@ -90,7 +90,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 
 static const char* rofidrun[] = {"rofi", "-show","drun",NULL};
 static const char* rofidwindows[] = {"rofi", "-show","window",NULL};
-static const char *lockscreen[] = {"i3lock" , NULL };
+static const char *lockscreen[] = {"/usr/local/bin/slock" , NULL };
 static const char *termcmd[]  = { "xterm", NULL };
 static const char *browsercmd[]  = { "chromium", NULL };
 static const char *codeeditor[] = {"zed" , NULL};

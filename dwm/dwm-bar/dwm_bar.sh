@@ -22,7 +22,7 @@ export SEP2=" | "
 
 # Import the modules
 #. "$DIR/bar-functions/dwm_alarm.sh"
-#. "$DIR/bar-functions/dwm_alsa.sh"
+. "$DIR/bar-functions/dwm_alsa.sh"
 #. "$DIR/bar-functions/dwm_backlight.sh"
 #. "$DIR/bar-functions/dwm_battery.sh"
 #. "$DIR/bar-functions/dwm_ccurse.sh"
@@ -42,7 +42,7 @@ export SEP2=" | "
 #. "$DIR/bar-functions/dwm_transmission.sh"
 #. "$DIR/bar-functions/dwm_vpn.sh"
 #. "$DIR/bar-functions/dwm_weather.sh"
-#. "$DIR/bar-functions/dwm_network_speed.sh"
+. "$DIR/bar-functions/dwm_network_speed.sh"
 
 parallelize() {
     while true
@@ -61,7 +61,6 @@ do
     # Append results of each func one by one to the upperbar string
     upperbar=""
     #upperbar="$upperbar$(dwm_alarm)"
-    #upperbar="$upperbar$(dwm_alsa)"
     #upperbar="$upperbar$(dwm_backlight)"
     #upperbar="$upperbar$(dwm_battery)"
     #upperbar="$upperbar$(dwm_ccurse)"
@@ -75,6 +74,7 @@ do
     #upperbar="$upperbar$(dwm_mpc)"
     #upperbar="$upperbar$(dwm_pulse)"
     upperbar="$upperbar$(dwm_resources)"
+    upperbar="$upperbar$(dwm_alsa)"
     upperbar="$upperbar$(dwm_date)"
     #upperbar="$upperbar$(dwm_spotify)"
     #upperbar="$upperbar$(dwm_transmission)"
