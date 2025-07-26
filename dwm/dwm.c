@@ -1413,6 +1413,16 @@ run(void)
 }
 
 void
+run_startup_commands(void) {
+    Arg a;
+
+    for (int i = 0; startup_commands[i]; i++) {
+        a.v = (void *)startup_commands[i];
+        spawn(&a);
+    }
+}
+
+void
 scan(void)
 {
 	unsigned int i, num;
@@ -2182,6 +2192,7 @@ main(int argc, char *argv[])
 		die("pledge");
 #endif /* __OpenBSD__ */
 	scan();
+	run_startup_commands();
 	run();
 	cleanup();
 	XCloseDisplay(dpy);

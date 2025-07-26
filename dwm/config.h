@@ -63,6 +63,16 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
+/** Commands automatically executed during window manager startup. */
+static const char *cmd_nitrogen[] = { "nitrogen", "--restore", NULL };
+static const char *cmd_picom[] = { "picom", "--experimental-backends", "--config", "/home/seu_usuario/.config/picom/picom.conf", NULL };
+
+static const char **startup_commands[] = {
+    cmd_nitrogen,
+    cmd_picom,
+    NULL
+};
+
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
@@ -74,7 +84,6 @@ static const char *lockscreen[] = {"i3lock" , NULL };
 static const char *termcmd[]  = { "xterm", NULL };
 static const char *browsercmd[]  = { "chromium", NULL };
 static const char *codeeditor[] = {"zed" , NULL};
-
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
