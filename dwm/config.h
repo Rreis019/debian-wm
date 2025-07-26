@@ -1,6 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
+#include <X11/X.h>
 #include <X11/Xutil.h>
 #include "movestack.c"
 
@@ -72,11 +73,13 @@ static const Layout layouts[] = {
 static const char *cmd_nitrogen[] = { "nitrogen", "--restore", NULL };
 static const char *cmd_picom[] = { "picom", "--experimental-backends", "--config", "/home/rodrigo/.config/picom/picom.conf", NULL };
 static const char *dwmbarcmd[] = { "bash","/usr/local/bin/dwm_bar.sh", NULL };
+static const char *nmapplet [] = {"nm-applet",NULL};
 
 static const char **startup_commands[] = {
     cmd_nitrogen,
     cmd_picom,
     dwmbarcmd,
+    nmapplet,
     NULL
 };
 
@@ -92,33 +95,55 @@ static const char *termcmd[]  = { "xterm", NULL };
 static const char *browsercmd[]  = { "chromium", NULL };
 static const char *codeeditor[] = {"zed" , NULL};
 
+static const char *upbrightness[]   = { "xbacklight", "-inc", "10", NULL };
+static const char *downbrightness[] = { "xbacklight", "-dec", "10", NULL };
+
+static const char *volup[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
+static const char *voldown[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
+static const char *volmute[] = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
+
+#define XF86XK_Search 0x1008FF1B
+#define XF86XK_Lock 225
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
+	{ 0,                   XF86XK_Search,      spawn,          {.v = rofidrun } },
 	{ MODKEY,                       XK_d,      spawn,          {.v = rofidrun } }, // Show app to open
 	{ MODKEY,                       XK_q,      spawn,          {.v = rofidwindows } }, // Show windows already opened
 	{ MODKEY,                       XK_b,      spawn,          {.v = browsercmd } }, //Opens browser
 	{ MODKEY,                       XK_c,      spawn,          {.v = codeeditor } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_x,      spawn,          {.v = lockscreen } },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} }, // Kill focused client
 	{ MODKEY|ControlMask,           XK_q,      quit,           {0} }, // Quit Window manager :/
 	{ MODKEY,                       XK_m,      togglebar,      {0} }, // Toggle status bar visible or not
 
     { 0,                            XK_Print,  spawn,          SHCMD("maim | xclip -selection clipboard -t image/png") }, //Print Whole screen
     { ShiftMask,                    XK_Print,  spawn,          SHCMD("maim -s | xclip -selection clipboard -t image/png") }, //Print select rectangle
-	//{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+
+    { 0,            XF86XK_MonBrightnessUp,    spawn,          {.v = upbrightness } },
+    { 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downbrightness } },
+
+    { 0,               XF86XK_AudioLowerVolume, spawn, {.v = voldown } },
+    { 0,               XF86XK_AudioRaiseVolume, spawn, {.v = volup } },
+    { 0,               XF86XK_AudioMute,        spawn, {.v = volmute } },
+
+    { 0, XF86XK_Lock, spawn, {.v = lockscreen } },
+	{ MODKEY,                       XK_x,      spawn,          {.v = lockscreen } },
+
+
+    //{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	//{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_Right,  movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_Left,   movestack,      {.i = -1 } },
 	{ MODKEY,                       XK_Right,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_Left,      focusstack,     {.i = -1 } },
 
-	//{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	//{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_h,      incnmaster,     {.i = -1 } },
+
+	{ MODKEY|ControlMask, XK_Left,  setmfact, {.f = -0.05} },
+	{ MODKEY|ControlMask, XK_Right, setmfact, {.f = +0.05} },
+
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
