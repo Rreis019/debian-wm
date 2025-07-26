@@ -3,7 +3,7 @@
 /* appearance */
 #include <X11/Xutil.h>
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int snap      = 0;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=10" };
@@ -15,8 +15,8 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { col_gray3, "#000000", col_gray2 },
+	[SchemeSel]  = { col_gray4, col_cyan,  "#000000"  },
 };
 
 /* tagging */
@@ -80,8 +80,11 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_q,      quit,           {0} }, // Quit Window manager :/
 	{ MODKEY,                       XK_m,      togglebar,      {0} }, // Toggle status bar visible or not
 
-	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+	//{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	//{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_Right,  movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_Left,   movestack,      {.i = -1 } },
+
 
 	//{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	//{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
