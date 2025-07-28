@@ -92,7 +92,7 @@ static const char* rofidrun[] = {"rofi", "-show","drun",NULL};
 static const char* rofidwindows[] = {"rofi", "-show","window",NULL};
 static const char *lockscreen[] = {"/usr/local/bin/slock" , NULL };
 static const char *termcmd[]  = { "/usr/local/bin/st", NULL };
-static const char *browsercmd[]  = { "chromium", NULL };
+static const char *webcmd[]  = { "chromium", NULL };
 static const char *codeeditor[] = {"zed" , NULL};
 
 static const char *upbrightness[]   = { "xbacklight", "-inc", "10", NULL };
@@ -110,12 +110,12 @@ static const Key keys[] = {
 	{ 0,                   XF86XK_Search,      spawn,          {.v = rofidrun } },
 	{ MODKEY,                       XK_d,      spawn,          {.v = rofidrun } }, // Show app to open
 	{ MODKEY,                       XK_q,      spawn,          {.v = rofidwindows } }, // Show windows already opened
-	{ MODKEY,                       XK_b,      spawn,          {.v = browsercmd } }, //Opens browser
+	{ MODKEY,                       XK_w,      spawn,          {.v = webcmd } }, //Opens browser
 	{ MODKEY,                       XK_c,      spawn,          {.v = codeeditor } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} }, // Kill focused client
 	{ MODKEY|ControlMask,           XK_q,      quit,           {0} }, // Quit Window manager :/
-	{ MODKEY,                       XK_m,      togglebar,      {0} }, // Toggle status bar visible or not
+	{ MODKEY,                       XK_b,      togglebar,      {0} }, // Toggle status bar visible or not
 
     { 0,                            XK_Print,  spawn,          SHCMD("maim | xclip -selection clipboard -t image/png") }, //Print Whole screen
     { ShiftMask,                    XK_Print,  spawn,          SHCMD("maim -s | xclip -selection clipboard -t image/png") }, //Print select rectangle
