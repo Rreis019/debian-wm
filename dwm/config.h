@@ -72,13 +72,13 @@ static const Layout layouts[] = {
 /** Commands automatically executed during window manager startup. */
 static const char *cmd_nitrogen[] = { "nitrogen", "--restore", NULL };
 static const char *cmd_picom[] = { "picom", "--experimental-backends", "--config", "/home/rodrigo/.config/picom/picom.conf", NULL };
-static const char *dwmbarcmd[] = { "bash","/usr/local/bin/dwm_bar.sh", NULL };
+static const char *statusbarcmd[] = { "/usr/local/bin/slstatus", NULL };
 static const char *nmapplet [] = {"nm-applet",NULL};
 
 static const char **startup_commands[] = {
     cmd_nitrogen,
     cmd_picom,
-    dwmbarcmd,
+    statusbarcmd,
     nmapplet,
     NULL
 };
@@ -91,7 +91,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char* rofidrun[] = {"rofi", "-show","drun",NULL};
 static const char* rofidwindows[] = {"rofi", "-show","window",NULL};
 static const char *lockscreen[] = {"/usr/local/bin/slock" , NULL };
-static const char *termcmd[]  = { "xterm", NULL };
+static const char *termcmd[]  = { "/usr/local/bin/st", NULL };
 static const char *browsercmd[]  = { "chromium", NULL };
 static const char *codeeditor[] = {"zed" , NULL};
 
@@ -144,10 +144,12 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask, XK_Left,  setmfact, {.f = -0.05} },
 	{ MODKEY|ControlMask, XK_Right, setmfact, {.f = +0.05} },
 
+	{ MODKEY,             XK_f,      togglefullscr,  {0} },
+
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_space,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
