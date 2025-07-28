@@ -239,6 +239,8 @@ static Monitor *systraytomon(Monitor *m);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void tile(Monitor *m);
+static void columns(Monitor *m);
+static void grid(Monitor *m);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void togglefullscr(const Arg *arg);
@@ -1980,6 +1982,60 @@ tile(Monitor *m)
 				ty += HEIGHT(c);
 		}
 }
+
+void
+grid(Monitor *m)
+{
+    unsigned int cols, rows, cn, rn, i, n;
+    int cx, cy, cw, ch;
+    Client *c;
+
+    // conta janelas
+    for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next))
+        n++;
+    if (n == 0)
+        return;
+
+    // define número de colunas e linhas
+    for (cols = 0; cols <= n/2; cols++)
+        if (cols*cols >= n)
+            break;
+    rows = (cols && (cols - 1) * cols >= n) ? cols - 1 : cols;
+
+    cw = m->ww / cols;
+    ch = m->wh / rows;
+
+    for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+        cn = i % cols;
+        rn = i / cols;
+        cx = m->wx + cn * cw;
+        cy = m->wy + rn * ch;
+        resize(c, cx, cy, cw - (2*c->bw), ch - (2*c->bw), 0);
+    }
+}
+
+void
+columns(Monitor *m)
+{
+	unsigned int i, n, w, x;
+	Client *c;
+
+	// Conta janelas visíveis
+	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+	if (n == 0)
+		return;
+
+	w = m->ww / n; // largura de cada coluna
+	x = m->wx;
+
+	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+		// Última janela pega o espaço restante (para evitar arredondamentos)
+		unsigned int cw = (i == n - 1) ? (m->wx + m->ww) - x : w;
+		resize(c, x, m->wy, cw - (2*c->bw), m->wh - (2*c->bw), 0);
+		x += cw;
+	}
+}
+
 
 void
 togglebar(const Arg *arg)
