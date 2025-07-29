@@ -1,0 +1,39 @@
+! Configurações de fonte e renderização
+Xft.antialias: 1
+Xft.hinting: 1
+Xft.autohint: 0
+Xft.hintstyle: hintslight
+Xft.rgba: rgb
+Xft.lcdfilter: lcddefault
+
+st.font: JetBrainsMono Nerd Font:style:medium:pixelsize=16
+
+! Padding da janela
+st.borderpx: 20
+
+! Transparência
+st.alpha: 1.0
+
+! Cores de fundo e texto padrão
+*background:  #2c313c
+*foreground:  #d3dae3
+*cursorColor: #5294e2
+
+! Cores 16 básicas (0-7 normais, 8-15 brilhantes)
+*color0:  #2c313c
+*color1:  #ef596f
+*color2:  #99c794
+*color3:  #fac863
+*color4:  #5294e2
+*color5:  #c594c5
+*color6:  #5fb3b3
+*color7:  #d3dae3
+
+*color8:  #6f7386
+*color9:  #ef596f
+*color10: #99c794
+*color11: #fac863
+*color12: #5294e2
+*color13: #c594c5
+*color14: #5fb3b3
+*color15: #ffffff
