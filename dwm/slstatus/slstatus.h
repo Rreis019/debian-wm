@@ -69,7 +69,7 @@ const char *uid(void);
 
 /* volume */
 const char *vol_perc(const char *);
-
+const char *alsa_master_vol(void);
 /* wifi */
 const char *wifi_perc(const char *);
 const char *wifi_essid(const char *);

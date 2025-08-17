@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* interval between updates (in ms) */
-static const int interval = 1000;
+static const int interval = 5000;
 
 /* text to show if no value can be retrieved */
 static const char unknown_str[] = "n/a";
@@ -45,16 +45,25 @@ static const char unknown_str[] = "n/a";
  * uid                  UID of current user             NULL
  * uptime               system uptime                   NULL
  * username             username of current user        NULL
+ * alsa_master_vol      ALSA Master device volume       NULL
  * vol_perc             OSS/ALSA volume in percent      "/dev/mixer"
  * wifi_perc            WiFi signal in percent          interface name
  * wifi_essid           WiFi ESSID                      interface name
  */
 static const struct arg args[] = {
 	/* function format          argument */
-	{ cpu_perc, "cpu %3s%% | ", NULL    },
-	//{ wifi_essid, "%s ",   "wlp0s20f0u9"    },
-	//{ wifi_perc, "%s%%  |",   "wlp0s20f0u9"    },
-	{ ram_perc, "ram %2s%% | ", NULL    },
-	{ run_command, "vol %s%% | ",    "pulsemixer --get-volume | awk '{print $1}'"  },
+
+	{ battery_state , "BAT(%s,", "BAT0" },
+	{ battery_state , "%s): ", "BAT1"},
+	{ battery_perc  , "%s%% " , "BAT0"},
+	{ battery_perc  , "%s%% |" , "BAT1"},
+	{ wifi_essid, "%s ",  "wlp3s0"    },
+	{ wifi_perc, "%s%% | ",   "wlp3s0"    },
+	//{ disk_used , "disk %.1f/", "/" },
+	//{ disk_total , "%.1f | ", "/" },
+	{ alsa_master_vol, "vol %3s% | ", NULL},
+	{ cpu_perc, "cpu %s%% | ", NULL    },
+	{ ram_perc, "ram %s%% | ", NULL    },
+	// { run_command, "vol %s%% | ",    "pulsemixer --get-volume | awk '{print $1}'"  },
 	{ datetime, "%s ",       "%F %T" },
 };

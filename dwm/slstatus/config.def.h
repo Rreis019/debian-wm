@@ -45,6 +45,7 @@ static const char unknown_str[] = "n/a";
  * uid                  UID of current user             NULL
  * uptime               system uptime                   NULL
  * username             username of current user        NULL
+ * alsa_master_vol     ALSA Master device volume       NULL
  * vol_perc             OSS/ALSA volume in percent      "/dev/mixer"
  * wifi_perc            WiFi signal in percent          interface name
  * wifi_essid           WiFi ESSID                      interface name
